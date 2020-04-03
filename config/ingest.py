@@ -23,7 +23,7 @@ config.parse.translation = {'expTime': 'EXPTIME',
                             'expId': 'IMAGEID',
                             'taiObs': 'DATE-OBS', #Not sure what this one is
                             'filter': 'FILTER',
-                            'field': 'FIELD',
+                            'field': 'FIELD'
                             }
 
 # Specify default key value pairs which are used if FITS keyword is missing
