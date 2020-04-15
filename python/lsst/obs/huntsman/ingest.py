@@ -83,7 +83,7 @@ class HuntsmanParseTask(ParseTask):
         # There should be a matching camera entry
         return 1
 
-
+                                      
 class HuntsmanCalibsParseTask(CalibsParseTask):
 
     def _translateFromCalibId(self, field, md):
