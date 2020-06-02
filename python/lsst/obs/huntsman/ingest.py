@@ -69,7 +69,6 @@ class HuntsmanParseTask(ParseTask):
 
         This is currently a placeholder.
         '''
-        print(md['DATE-OBS'][:10])
         return md['DATE-OBS'][:10]
 
     def translate_ccd(self, md):
@@ -101,8 +100,7 @@ class HuntsmanParseTask(ParseTask):
             return md['IMAGEID']
         except KeyError:
             return f'{np.random.randint(100000)}'
-
-
+                                      
 class HuntsmanCalibsParseTask(CalibsParseTask):
 
     def _translateFromCalibId(self, field, md):
