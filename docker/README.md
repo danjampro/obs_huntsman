@@ -20,6 +20,12 @@ ingestImages.py DATA testdata/calib/*.fits.fz --mode=link --calib DATA/CALIB
 
 Note here that since we are using raw (i.e. not master) calibration files, we use `ingestImages.py` here. If they were master calibration frames, `ingestCalibs.py` should be used instead.
 
+### Ingest the astrometry/photometry reference catalogue
+```
+mdkir DATA/ref_cats
+ln -s $LSST_HOME/testdata/ref_cats/ps1_pv3_3pi_20170110_GmagLT19 DATA/ref_cats/
+```
+
 ## Create & ingest master calibration frames
 ```
 python $OBS_HUNTSMAN/scripts/constructHuntsmanBiases.py 2018-05-16
