@@ -14,6 +14,7 @@ docker-compose run lsst_stack
 ### Ingesting images
 
 ```
+cd $LSST_HOME
 ingestImages.py DATA testdata/science/*.fits --mode=link --calib DATA/CALIB
 ingestImages.py DATA testdata/calib/*.fits.fz --mode=link --calib DATA/CALIB
 ```
@@ -22,8 +23,8 @@ Note here that since we are using raw (i.e. not master) calibration files, we us
 
 ### Ingest the astrometry/photometry reference catalogue
 ```
-mdkir DATA/ref_cats
-ln -s $LSST_HOME/testdata/ref_cats/ps1_pv3_3pi_20170110_GmagLT19 DATA/ref_cats/
+mkdir DATA/ref_cats
+ln -s $LSST_HOME/testdata/ref_cats/skymapper_test/ref_cats/skymapper_dr3 DATA/ref_cats/
 ```
 
 ## Create & ingest master calibration frames
