@@ -5,7 +5,10 @@ Config for the makeDiscreteSkyMapTask.
 config.coaddName='deep'
 
 # dimensions of inner region of patches (x,y pixels)
-config.skyMap.patchInnerDimensions=[10000, 10000]
+config.skyMap.patchInnerDimensions=[5000, 5000]
+
+# nominal pixel scale (arcsec/pixel)
+config.skyMap.pixelScale = 3
 
 # border between patch inner and outer bbox (pixels)
 config.skyMap.patchBorder=100
