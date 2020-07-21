@@ -52,10 +52,10 @@ makeDiscreteSkyMap.py DATA --id --rerun processCcdOutputs:coadd
 
 ## Warp calexps onto the SkyMap
 ```
-makeCoaddTempExp.py DATA --rerun coadd --selectId filter=g2_8 --id filter=g2_8 tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2 --config doApplyUberCal=False
+makeCoaddTempExp.py DATA --rerun coadd --selectId filter=g2 --id filter=g2 tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2 --config doApplyUberCal=False
 ```
 
 ## Make the coadds
 ```
-assembleCoadd.py DATA --rerun coadd --selectId filter=g2_8 --id filter=g2_8 tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2
+assembleCoadd.py DATA --rerun coadd --selectId filter=g2 --id filter=g2 tract=0 patch=0,0^0,1^0,2^1,0^1,1^1,2^2,0^2,1^2,2
 ```
