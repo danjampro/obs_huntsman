@@ -24,7 +24,7 @@ config.photoCal.photoCatName = REFCAT
 config.connections.astromRefCat = REFCAT
 config.connections.photoRefCat = REFCAT
 
-config.doPhotoCal = False
+config.doPhotoCal = True
 config.doAstrometry = True
 
 # These colorterms are for HSC, included as an example

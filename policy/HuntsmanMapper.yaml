@@ -18,6 +18,9 @@ exposures:
     template: 'calexp/calexp/%(visit)07d/calexp-%(visit)07d_%(ccd)02d-%(filter)s.fits'
   postISRCCD:
     template: 'postISR/postISR/%(visit)07d/postISR-%(visit)07d_%(ccd)02d-%(filter)s.fits'
+  # deepCoadd_directWarps are warped calexps made by makeCoaddTempEx.py
+  deepCoadd_directWarp:
+    template: deepCoadd/%(filter)s/%(tract)d/%(patch)stempExp/v%(visit)d-f%(filter)s.fits
 
 datasets:
   processCcd_metadata:

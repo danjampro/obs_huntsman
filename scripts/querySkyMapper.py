@@ -10,7 +10,7 @@ from astroquery.utils.tap.core import TapPlus
 ra0 = 287.4417
 dec0 = -63.8575
 radius = 4
-g_mag_limit = 17
+g_mag_limit = 16
 class_star_limit = 0.9
 
 # Define the output file name
