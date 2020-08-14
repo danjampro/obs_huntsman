@@ -78,7 +78,7 @@ class HuntsmanParseTask(ParseTask):
         """
         date_obs = md['DATE-OBS']  # This is a string
         datestr = ''.join([s for s in date_obs if s.isdigit()])
-        assert len(datestr) == 17, "Date string expected to contain 17 characters."
+        assert len(datestr) == 17, "Date string expected to contain 17 numeric characters."
         return int(datestr)
 
     def translate_ccd(self, md):
