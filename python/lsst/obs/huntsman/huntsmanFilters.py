@@ -10,6 +10,6 @@ from lsst.obs.base import FilterDefinition, FilterDefinitionCollection
 
 HUNTSMAN_FILTER_DEFINITIONS = FilterDefinitionCollection(
     FilterDefinition(physical_filter="g2_8",
-                     abstract_filter="g2",
+                     abstract_filter="g2_8",
                      lambdaEff=550, lambdaMin=500, lambdaMax=600),
 )
