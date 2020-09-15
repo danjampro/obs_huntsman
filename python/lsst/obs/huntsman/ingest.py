@@ -3,11 +3,8 @@ This part is responsible for converting FITS headers into appropriate python
 objects. The functions defined here are called in ParseTask.getInfoFromMetadata.
 See also config.ingest.py.
 """
-import os
 import re
-import yaml
 
-from lsst.utils import getPackageDir
 from lsst.pipe.tasks.ingest import IngestTask, ParseTask, IngestArgumentParser
 from lsst.pipe.tasks.ingestCalibs import CalibsParseTask
 
