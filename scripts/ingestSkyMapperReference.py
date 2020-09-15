@@ -29,5 +29,5 @@ config.load(configFile)
 # files, and then run `test_ingested_reference_catalog.py` on the output
 # with a glob pattern that matches the first 10 files to check that the
 # ingest worked.
-args = [repo, "--configfile", {configFile}, "--output", output_dir, "--clobber-config", *files]
+args = [repo, "--configfile", configFile, "--output", output_dir, "--clobber-config", *files]
 ingestTask.parseAndRun(args=args)
