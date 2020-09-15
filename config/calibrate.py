@@ -45,4 +45,6 @@ for refObjLoader in (config.astromRefObjLoader,
                      config.photoRefObjLoader,
                      ):
     refObjLoader.filterMap['g2_8'] = 'g_psf'
+    refObjLoader.filterMap['g_band'] = 'g_psf'
+    refObjLoader.filterMap['r_band'] = 'r_psf'
     # refObjLoader.filterMap['i2'] = 'i'
