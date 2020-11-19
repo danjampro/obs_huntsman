@@ -7,7 +7,7 @@ https://pipelines.lsst.io/modules/lsst.meas.algorithms/tasks/lsst.meas.algorithm
 config.dataset_config.ref_dataset_name = "skymapper_dr3"
 
 # Gen3 butler wants all of our refcats have the same indexing depth.
-config.dataset_config.indexer['HTM'].depth = 7
+config.dataset_config.indexer['HTM'].depth = 5
 
 # Ingest the data in parallel with this many processes.
 config.n_processes = 8
