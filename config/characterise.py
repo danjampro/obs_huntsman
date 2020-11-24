@@ -1,6 +1,6 @@
 # Cosmic ray removal
 # See: https://github.com/lsst/meas_algorithms/blob/master/src/CR.cc
-config.repair.doCosmicRay = True
+config.repair.doCosmicRay = False
 
 # This controls the maximum number of allowable CRs in an image
 config.repair.cosmicray.nCrPixelMax = 1000000
