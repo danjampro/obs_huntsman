@@ -5,46 +5,16 @@ https://github.com/lsst/obs_lsstSim/blob/86d1dc5cd3953c6b359c3f5e9ab69ae0c075f78
 """
 import os
 import numpy as np
-from contextlib import suppress
 
 import lsst.afw.table as afwTable
 import lsst.geom as lsstGeom
 from lsst.afw import cameraGeom
 from lsst.utils import getPackageDir
 
-
-PRESETS = {"zwo": {'width': 5496, 'height': 3672, 'saturation': 4095, 'gain': 1.145,
-                   'readNoise': 2.4}}
-
-CAMERAS = {"1815420013090900": {"preset": "zwo"},
-           "371d420013090900": {"preset": "zwo"},
-           "0e2c420013090900": {"preset": "zwo"},
-           "0f1d420013090900": {"preset": "zwo"},
-           "361d420013090900": {"preset": "zwo"},
-           "3528420013090900": {"preset": "zwo"},
-           "370d420013090900": {"preset": "zwo"},
-           "1919420013090900": {"preset": "zwo"},
-           "2d194b0013090900": {"preset": "zwo"},
-           "2014420013090900": {"preset": "zwo"},
-           "testingcam00": {"preset": "zwo", "width": 100, "height": 100},
-           "testingcam01": {"preset": "zwo", "width": 500, "height": 500}}
-
-# TODO: Move camera config to a config file
+from huntsman.drp.utils.lsst.camera import get_camera_configs
 
 
-def get_camera_config(camera_name):
-    """ Load the camera config using the camera name as a key, loading the presets. """
-    config = {}
-    with suppress(KeyError):
-        preset = CAMERAS[camera_name]["preset"]
-        config.update(PRESETS[preset])
-    for key, value in CAMERAS[camera_name].items():
-        if key != "preset":
-            config[key] = value
-    return config
-
-
-def make_amplifier(name, readNoise, gain, width, height, saturation, overscan):
+def make_amplifier(name, read_noise, gain, width, height, saturation, overscan, **kwargs):
     """ Make an "amplifier" object. In LSST, a single detector can be comprised of multiple
     amplifiers. This is not the case for Huntsman.
     """
@@ -71,7 +41,7 @@ def make_amplifier(name, readNoise, gain, width, height, saturation, overscan):
     amplifier.setName(name)
     amplifier.setGain(gain)
     amplifier.setSaturation(saturation)
-    amplifier.setReadNoise(readNoise)
+    amplifier.setReadNoise(read_noise)
     amplifier.setReadoutCorner(readoutCorner)
     amplifier.setLinearityCoeffs(linearityCoeffs)
     amplifier.setLinearityType(linearityType)
@@ -107,5 +77,5 @@ def make_camera(camera_name, **kwargs):
 
 if __name__ == "__main__":
 
-    for camera_name in CAMERAS.keys():
-        make_camera(camera_name, **get_camera_config(camera_name))
+    for camera_config in get_camera_configs():
+        make_camera(**camera_config)
