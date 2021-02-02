@@ -14,7 +14,7 @@ from lsst.utils import getPackageDir
 from huntsman.drp.utils.lsst.camera import get_camera_configs
 
 
-def make_amplifier(name, read_noise, gain, width, height, saturation, overscan, **kwargs):
+def make_amplifier(camera_name, read_noise, gain, width, height, saturation, overscan, **kwargs):
     """ Make an "amplifier" object. In LSST, a single detector can be comprised of multiple
     amplifiers. This is not the case for Huntsman.
     """
@@ -38,7 +38,7 @@ def make_amplifier(name, read_noise, gain, width, height, saturation, overscan, 
     amplifier.setRawFlipX(False)
     amplifier.setRawFlipY(False)
     amplifier.setBBox(bbox)
-    amplifier.setName(name)
+    amplifier.setName(camera_name)
     amplifier.setGain(gain)
     amplifier.setSaturation(saturation)
     amplifier.setReadNoise(read_noise)
@@ -59,7 +59,7 @@ def make_camera(camera_name, **kwargs):
     """ Make a camera (a detectorTable object), which can in principle contain multiple amplifiers.
     Huntsman's cameras only have one amplifier per camera.
     """
-    amplifier = make_amplifier(**kwargs)
+    amplifier = make_amplifier(camera_name=camera_name, **kwargs)
 
     # Create detectorTable (can add more than one CCD here later)
     protoTypeSchema = cameraGeom.Amplifier.getRecordSchema()

@@ -3,7 +3,8 @@ See:
     https://pipelines.lsst.io/py-api/lsst.afw.cameraGeom.CameraConfig.html
     https://pipelines.lsst.io/py-api/lsst.afw.cameraGeom.DetectorConfig.html
 """
-import lsst.afw.cameraGeom.cameraConfig
+from lsst.afw.cameraGeom.cameraConfig import CameraConfig
+from lsst.afw.geom.transformConfig import TransformConfig
 from huntsman.drp.utils.lsst.camera import get_camera_configs, get_config
 
 
@@ -14,7 +15,10 @@ def create_detector_config(camera_config):
     Returns:
         lsst.afw.cameraGeom.cameraConfig.DetectorConfig
     """
-    detector_config = lsst.afw.cameraGeom.cameraConfig.DetectorConfig()
+    # For some reason we have to do this import here. Thanks, LSST.
+    from lsst.afw.cameraGeom.cameraConfig import DetectorConfig
+
+    detector_config = DetectorConfig()
     detector_config.transformDict.nativeSys = 'Pixels'
     detector_config.transposeDetector = False
 
@@ -25,7 +29,7 @@ def create_detector_config(camera_config):
     detector_config.bbox_x1 = camera_config["width"]
 
     # Name of detector slot
-    detector_config.name = camera_config["name"]
+    detector_config.name = camera_config["camera_name"]
 
     # Pixel size in mm
     detector_config.pixelSize_x = camera_config["pixel_size"]
@@ -50,7 +54,7 @@ def create_detector_config(camera_config):
     return detector_config
 
 
-if not type(config) is lsst.afw.cameraGeom.cameraConfig.CameraConfig:
+if not isinstance(config, CameraConfig):
     raise TypeError(f"Config is wrong type. Expected , got {type(config)}.")
 
 CONFIG = get_config()
@@ -67,22 +71,21 @@ config.name = 'Huntsman'
 config.transformDict.nativeSys = 'FocalPlane'
 
 # Sets the plate scale in arcsec/mm (zwo pix size 0.0024mm and 1.2611"):
-config.plateScale = config["cameras"]["plate_scale"]
+config.plateScale = CONFIG["cameras"]["plate_scale"]
 
 # Specify transformation between focal plane units and field angle units.
 # This is required by the stack as of v20.
 # One of its uses is to calculate the pixel size for the initial WCS.
 ZWO_PIXEL_SIZE = CONFIG["cameras"]["presets"]["zwo"]["pixel_size"]
 config.transformDict.transforms = {}
-config.transformDict.transforms['FieldAngle'] = lsst.afw.geom.transformConfig.TransformConfig()
+config.transformDict.transforms['FieldAngle'] = TransformConfig()
 config.transformDict.transforms['FieldAngle'].transform['radial'].coeffs = [0.0, ZWO_PIXEL_SIZE]
 config.transformDict.transforms['FieldAngle'].transform.name = 'radial'
 
-# Define a dict of detectors:
-config.detectorList = {}  # Oh great, detectorList is actually a dict. Thanks, LSST.
-
 # ==================================================================================================
 # Camera-specific configs
+
+config.detectorList = {}  # Oh great, detectorList is actually a dict. Thanks again, LSST.
 
 for i, camera_config in enumerate(CAMERA_CONFIGS):
 
