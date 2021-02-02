@@ -112,6 +112,21 @@ class HuntsmanMapper(CameraMapper):
                                          filter=True)
 
     def _createInitialSkyWcs(self, exposure):
+        """
+        """
+        self._createSkyWcsFromMetadata(exposure)
+        print("a")
+        print(exposure.getWcs(), type(exposure.getWcs()))
+        try:
+            wcs = exposure.getWcs()
+            print(wcs.getCdMatrix())
+        except:
+            return
+        print(wcs.pixelToSky(1., 2.))
+        print("b")
+
+    """
+    def _createInitialSkyWcs(self, exposure):
         # DECam has a coordinate system flipped on X with respect to our
         # VisitInfo definition of the field angle orientation.
         # We have to override this method until RFC-605 is implemented, to pass
@@ -133,3 +148,4 @@ class HuntsmanMapper(CameraMapper):
             if e.__context__ is not None:
                 self.log.debug("Root-cause Exception was: %s",
                                traceback.TracebackException.from_exception(e.__context__))
+    """
