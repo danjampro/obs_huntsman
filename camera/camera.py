@@ -5,7 +5,7 @@ See:
 """
 from lsst.afw.cameraGeom.cameraConfig import CameraConfig
 from lsst.afw.geom.transformConfig import TransformConfig
-from huntsman.drp.utils.lsst.camera import get_camera_configs, get_config
+from huntsman.drp.lsst.utils.camera import get_camera_configs, get_config
 
 
 def create_detector_config(camera_config):

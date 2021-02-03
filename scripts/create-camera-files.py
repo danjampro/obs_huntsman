@@ -11,7 +11,7 @@ import lsst.geom as lsstGeom
 from lsst.afw import cameraGeom
 from lsst.utils import getPackageDir
 
-from huntsman.drp.utils.lsst.camera import get_camera_configs
+from huntsman.drp.lsst.utils.camera import get_camera_configs
 
 
 def make_amplifier(camera_name, read_noise, gain, width, height, saturation, overscan, **kwargs):
