@@ -26,10 +26,11 @@ config.doMeasurePsf = True
 config.measurePsf.starSelector['objectSize'].doSignalToNoiseLimit = True
 config.measurePsf.starSelector['objectSize'].doFluxLimit = False
 config.measurePsf.starSelector['objectSize'].signalToNoiseMin = 10  # Default 20
+config.measurePsf.starSelector['objectSize'].signalToNoiseMax = 50
 
 
-config.measurePsf.reserve.fraction = 0.2
-config.measurePsf.starSelector["objectSize"].sourceFluxField = 'base_PsfFlux_instFlux'
+# config.measurePsf.reserve.fraction = 0.2
+# config.measurePsf.starSelector["objectSize"].sourceFluxField = 'base_PsfFlux_instFlux'
 
 
 # Increasing this number gives a more accurate PSF estimate
