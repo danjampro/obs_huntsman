@@ -6,6 +6,8 @@ https://pipelines.lsst.io/modules/lsst.afw.image/exposure-fits-metadata.html
 Possibly useful:
 https://jira.lsstcorp.org/browse/DM-19766
 """
+from contextlib import suppress
+
 from lsst.geom import SpherePoint
 from lsst.geom import degrees
 from lsst.afw.coord import Observatory
@@ -46,10 +48,12 @@ class MakeHuntsmanRawVisitInfo(MakeRawVisitInfo):
         argDict["date"] = self.getDateAvg(md=md, exposureTime=argDict["exposureTime"])
 
         # Boresight information required to create an initial WCS estimate based on camera geometry
-        argDict["boresightRaDec"] = SpherePoint(md["RA-MNT"], md["DEC-MNT"], units=degrees)
-        argDict["boresightAirmass"] = md["AIRMASS"]
-        argDict["boresightRotAngle"] = 0 * degrees
-        argDict["rotType"] = RotType.SKY
+        # Note that this is not currently used for Huntsman
+        with suppress(KeyError):
+            argDict["boresightRaDec"] = SpherePoint(md["RA-MNT"], md["DEC-MNT"], units=degrees)
+            argDict["boresightAirmass"] = md["AIRMASS"]
+            argDict["boresightRotAngle"] = 0 * degrees
+            argDict["rotType"] = RotType.SKY
 
     def getDateAvg(self, md, exposureTime):
         """
