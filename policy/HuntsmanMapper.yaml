@@ -20,7 +20,16 @@ exposures:
     template: 'postISR/postISR/%(visit)07d/postISR-%(visit)07d_%(ccd)02d-%(filter)s.fits'
   deepCoadd_directWarp:  # made by makeCoaddTempEx.py
     template: deepCoadd/%(filter)s/%(tract)d/%(patch)stempExp/v%(visit)d-f%(filter)s.fits
-
+  # This is a Huntsman custom dataset:
+  offsetBackground:
+    description: "A full-size background image measured from offset sky exposures."
+    persistable: ExposureF
+    storage: FitsStorage
+    python: lsst.afw.image.ExposureF
+    template: calexp/offset-bkgd/%(visit)07d/skyoffset-%(visit)07d_%(ccd)02d-%(filter)s.fits
+    level: Ccd
+    tables: raw
+    
 datasets:
   processCcd_metadata:
     template: 'processCcd_md/%(dateObs)s/processCcd_md-%(visit)04d-%(filter)s-%(ccd)02d.boost'
