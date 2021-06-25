@@ -21,11 +21,11 @@ config.isr.doDark = True
 
 # ~~~~~ Characterise image subtask ~~~~
 
-# Load default config
-config.charImage.load(os.path.join(configDir, "characterise.py"))
-
 # Retarget this subtask to use Huntsman override
 config.charImage.retarget(HuntsmanCharacterizeImageTask)
+
+# Load default config
+config.charImage.load(os.path.join(configDir, "characterise.py"))
 
 # Yes we want the outputs to be written to file
 config.charImage.doWrite = True

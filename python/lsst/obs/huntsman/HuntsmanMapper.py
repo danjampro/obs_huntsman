@@ -6,9 +6,6 @@ from lsst.obs.base import CameraMapper
 from .makeHuntsmanRawVisitInfo import MakeHuntsmanRawVisitInfo
 from .huntsmanFilters import HUNTSMAN_FILTER_DEFINITIONS
 
-import traceback
-from lsst.obs.base.utils import createInitialSkyWcs, InitialSkyWcsError
-
 
 class HuntsmanMapper(CameraMapper):
 
