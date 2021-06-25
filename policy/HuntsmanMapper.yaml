@@ -29,7 +29,7 @@ exposures:
     template: calexp/offset-bkgd/%(visit)07d/skyoffset-%(visit)07d_%(ccd)02d-%(filter)s.fits
     level: Ccd
     tables: raw
-    
+
 datasets:
   processCcd_metadata:
     template: 'processCcd_md/%(dateObs)s/processCcd_md-%(visit)04d-%(filter)s-%(ccd)02d.boost'
