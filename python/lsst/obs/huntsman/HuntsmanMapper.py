@@ -97,7 +97,14 @@ class HuntsmanMapper(CameraMapper):
     def std_bias(self, item, dataId):
         """Standardize a bias dataset by converting it to an Exposure instead
         of an Image"""
-        return self._standardizeExposure(self.exposures['raw'], item, dataId,
+        return self._standardizeExposure(self.calibrations['bias'], item, dataId,
+                                         trimmed=False, setVisitInfo=False,
+                                         filter=False)
+
+    def std_dark(self, item, dataId):
+        """Standardize a bias dataset by converting it to an Exposure instead
+        of an Image"""
+        return self._standardizeExposure(self.calibrations['dark'], item, dataId,
                                          trimmed=False, setVisitInfo=False,
                                          filter=False)
 
