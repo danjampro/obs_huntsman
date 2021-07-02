@@ -4,7 +4,6 @@
 #  https://pipelines.lsst.io/v/foo/_modules/lsst/obs/base/mapping.html
 #  https://pipelines.lsst.io/py-api/lsst.obs.base.CalibrationMapping.html
 
-
 needCalibRegistry: true
 camera: ../camera
 defaultLevel: Ccd
@@ -93,4 +92,23 @@ calibrations:
     persistable: DecoratedImageF
     python: lsst.afw.image.DecoratedImageF
     template: calib/flat/%(calibDate)s/%(ccd)i/%(filter)s.fits
+    validRange: true
+  # Defects identify bad pixels
+  defects:
+    filter: false
+    columns:
+      - ccd
+    level: ccd
+    obsTimeName: date
+    persistable: BaseCatalog
+    python: lsst.ip.isr.Defects
+    refCols:
+      - ccd
+      - dateObs
+    reference: raw_visit
+    storage: FitsStorage
+    tables: defects
+    template: calib/defects/%(calibDate)s/defects-%(calibDate)s-%(ccd)03d.fits
+    validStartName: validStart
+    validEndName: validEnd
     validRange: true
