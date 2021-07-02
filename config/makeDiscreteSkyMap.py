@@ -5,13 +5,13 @@ Config for the makeDiscreteSkyMapTask.
 config.coaddName='deep'
 
 # dimensions of inner region of patches (x,y pixels)
-config.skyMap.patchInnerDimensions=[5000, 5000]
+config.skyMap.patchInnerDimensions=[7000, 7000]
 
 # nominal pixel scale (arcsec/pixel)
-config.skyMap.pixelScale = 3
+config.skyMap.pixelScale = 1
 
 # border between patch inner and outer bbox (pixels)
 config.skyMap.patchBorder=100
 
 # minimum overlap between adjacent sky tracts, on the sky (deg)
-config.skyMap.tractOverlap=0.0
+config.skyMap.tractOverlap=0.1
