@@ -18,7 +18,7 @@ config.isr.load(os.path.join(configDir, "isr.py"))
 config.isr.doBias = True
 config.isr.doFlat = True
 config.isr.doDark = True
-config.isr.doDefects = True
+config.isr.doDefect = True
 
 # ~~~~~ Characterise image subtask ~~~~
 

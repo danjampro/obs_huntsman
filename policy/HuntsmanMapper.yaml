@@ -95,20 +95,20 @@ calibrations:
     validRange: true
   # Defects identify bad pixels
   defects:
+    level: Ccd
+    tables: defects
     filter: false
-    columns:
-      - ccd
-    level: ccd
-    obsTimeName: date
+    obsTimeName: dateObs
     persistable: BaseCatalog
     python: lsst.ip.isr.Defects
+    reference: raw
+    storage: FitsStorage
+    columns:
+      - ccd
     refCols:
       - ccd
       - dateObs
-    reference: raw_visit
-    storage: FitsStorage
-    tables: defects
-    template: calib/defects/%(calibDate)s/defects-%(calibDate)s-%(ccd)03d.fits
+    template: calib/defects/%(calibDate)s/%(ccd)i.fits
     validStartName: validStart
     validEndName: validEnd
     validRange: true
