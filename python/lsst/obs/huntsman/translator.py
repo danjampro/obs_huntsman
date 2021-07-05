@@ -237,6 +237,17 @@ class HuntsmanTranslator(FitsTranslator):
         self._used_these_cards(key)
         return dark_time
 
+    @cache_translation
+    def to_physical_filter(self):
+        """ Return the name of the physical filter. Must be defined in filter definitions.
+        Returns:
+            filter (str): The physical filter name.
+        """
+        key = "FILTER"
+        value = self._header[key].strip()
+        self._used_these_cards(key)
+        return value
+
     # Private methods
 
     # TODO: Do we need this? It was originally copied from the DEcam translator
