@@ -5,6 +5,7 @@ from datetime import datetime
 
 from astropy.time import Time
 from astropy import units as u
+from astropy.coordinates import Angle
 
 from panoptes.utils.utils import get_quantity_value
 
@@ -27,7 +28,12 @@ def _make_trivial_map_from_config():
     Returns:
         dict: Trivial mapping dict.
     """
-    return HUNTSMAN_CONFIG["fits_header"]["mappings"]
+    mapping = HUNTSMAN_CONFIG["fits_header"]["mappings"]
+
+    # Add units for some specific quantities
+    mapping["exposure_time"] = (mapping["exposure_time"], dict(unit=u.s))
+
+    return mapping
 
 
 def _get_camera_num_from_config(camera_name):
@@ -65,7 +71,12 @@ class HuntsmanTranslator(FitsTranslator):
     _trivial_map = _make_trivial_map_from_config()
 
     # Constant mappings do not depend on the header
-    _const_map = {"detector_group": "Huntsman"}
+    # TODO: Figure out actual boresight rotation and speficy per-camera based on header
+    _const_map = {"instrument": "Huntsman",
+                  "detector_group": "Huntsman",
+                  "science_program": "Huntsman",
+                  "boresight_rotation_angle": Angle(0 * u.deg),
+                  "boresight_rotation_coord": "sky"}
 
     # Class methods
 
@@ -88,6 +99,16 @@ class HuntsmanTranslator(FitsTranslator):
         return cls._get_exposure_id(date=cls._max_date)
 
     # Translation methods
+
+    @cache_translation
+    def to_detector_num(self):
+        """ Return a unique (for instrument) integer identifier for the sensor.
+        Note: The detectors need to be present in the cameras config directory.
+        Returns:
+            int: The detector number.
+        """
+        camera_name = self.to_detector_name()
+        return _get_camera_num_from_config(camera_name)
 
     @cache_translation
     def to_exposure_id(self):
@@ -121,17 +142,15 @@ class HuntsmanTranslator(FitsTranslator):
         """
         exp_id = self.to_exposure_id()
         det_num = self.to_detector_num()
-        return self._get_detector_exposure_id(detector_num=det_num, exp_id=exp_id)
+        return self._get_detector_exposure_id(detector_num=det_num, exposure_id=exp_id)
 
     @cache_translation
-    def to_detector_num(self):
-        """ Return a unique (for instrument) integer identifier for the sensor.
-        Note: The detectors need to be present in the cameras config directory.
+    def to_observation_id(self):
+        """ Return a unique label identifying this observation.
         Returns:
-            int: The detector number.
+            str: The observation ID.
         """
-        camera_name = self.to_detector_name()
-        return _get_camera_num_from_config(camera_name)
+        return str(self.to_detector_exposure_id())
 
     # NOTE: We don't actually count exposures so this probably doesn't work properly
     @cache_translation
@@ -203,6 +222,20 @@ class HuntsmanTranslator(FitsTranslator):
         radec, used_cards = header_utils.header_to_altaz(self._header, get_used_cards=True)
         self._used_these_cards(*used_cards)
         return radec
+
+    @cache_translation
+    def to_dark_time(self):
+        """ Return the duration of the exposure with shutter closed.
+        Returns:
+            astropy.Quantity: The dark time.
+        """
+        key = "IMAGETYP"
+        if self._header[key] == "Dark Frame":
+            dark_time = self.to_exposure_time()
+        else:
+            dark_time = 0 * u.second
+        self._used_these_cards(key)
+        return dark_time
 
     # Private methods
 
