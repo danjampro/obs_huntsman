@@ -76,10 +76,6 @@ class HuntsmanCamera(Instrument):
         """ Return a factory for creating Gen2->Gen3 data ID translators. """
         raise NotImplementedError("Not implemented.")
 
-    def applyConfigOverrides(self, name, config):
-        print(name)
-        super().applyConfigOverrides(name, config)
-
     # Private methods
 
     @staticmethod

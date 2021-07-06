@@ -1,3 +1,4 @@
 setupRequired(pipe_tasks)
 setupRequired(pipe_drivers)
+setupRequired(ctrl_mpexec)
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
