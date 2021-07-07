@@ -75,8 +75,12 @@ class HuntsmanTranslator(FitsTranslator):
     _const_map = {"instrument": "Huntsman",
                   "detector_group": "Huntsman",
                   "science_program": "Huntsman",
+                  "telescope": "Huntsman",
                   "boresight_rotation_angle": Angle(0 * u.deg),
-                  "boresight_rotation_coord": "sky"}
+                  "boresight_rotation_coord": "sky",
+                  "temperature": 0 * u.Celsius,
+                  "pressure": 0 * u.pascal,
+                  "relative_humidity": 0.}
 
     # Class methods
 
