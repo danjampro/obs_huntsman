@@ -10,7 +10,7 @@ config.dataset_config.ref_dataset_name = "skymapper_dr3"
 config.dataset_config.indexer['HTM'].depth = 7
 
 # Ingest the data in parallel with this many processes.
-config.n_processes = 8
+config.n_processes = 1
 
 # These define the names of the fields from the gaia_source data model:
 # http://skymapper.anu.edu.au/table-browser/
