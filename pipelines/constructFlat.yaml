@@ -17,6 +17,9 @@ tasks:
       doFlat: False
       doFringe: False
       doApplyGains: False
+      # Vignette seems to be necessary to get the validPolygon
+      doVignette: True
+      vignette.doWriteVignettePolygon: True
   cpFlatMeasure:
     class: lsst.cp.pipe.cpFlatNormTask.CpFlatMeasureTask
     config:
