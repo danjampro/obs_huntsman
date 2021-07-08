@@ -1,16 +1,16 @@
 # https://github.com/lsst/cp_pipe/blob/master/pipelines/cpDark.yaml
-description: cp_pipe DARK calibration construction
+description: Huntsman dark calibration construction.
 tasks:
   isr:
     class: lsst.ip.isr.IsrTask
     config:
-      connections.ccdExposure: 'raw'
-      connections.outputExposure: 'cpDarkIsr'
+      connections.ccdExposure: "raw"
+      connections.outputExposure: "cpDarkIsr"
       doBias: True
       doVariance: True
-      doLinearize: True
-      doCrosstalk: True
-      doDefect: True
+      doLinearize: False
+      doCrosstalk: False
+      doDefect: False
       doNanMasking: True
       doInterpolate: True
       doBrighterFatter: False
@@ -21,14 +21,14 @@ tasks:
   cpDark:
     class: lsst.cp.pipe.cpDarkTask.CpDarkTask
     config:
-      connections.inputExp: 'cpDarkIsr'
-      connections.outputExp: 'cpDarkProc'
+      connections.inputExp: "cpDarkIsr"
+      connections.outputExp: "cpDarkProc"
   cpDarkCombine:
     class: lsst.cp.pipe.cpCombine.CalibCombineTask
     config:
-      connections.inputExps: 'cpDarkProc'
-      connections.outputData: 'dark'
-      calibrationType: 'dark'
+      connections.inputExps: "cpDarkProc"
+      connections.outputData: "dark"
+      calibrationType: "dark"
       exposureScaling: "DarkTime"
       python: config.mask.append("CR")
 contracts:
