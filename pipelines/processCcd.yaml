@@ -1,0 +1,34 @@
+description: Create calibrated exposures from raw science data.
+tasks:
+  isr:
+    class: lsst.ip.isr.IsrTask
+    config:
+      doLinearize: false
+      doCrosstalk: false
+      doDefect: false
+      doFringe: false
+  characterizeImage:
+    class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
+    config:
+      repair.doCosmicRay: false
+      python: |
+        config.doMeasurePsf = True
+        config.measurePsf.starSelector['objectSize'].doFluxLimit = False
+        config.measurePsf.starSelector['objectSize'].doSignalToNoiseLimit = True
+        config.measurePsf.starSelector['objectSize'].signalToNoiseMin = 10
+        config.measurePsf.starSelector['objectSize'].signalToNoiseMax = 50
+  calibrate:
+    class: lsst.pipe.tasks.calibrate.CalibrateTask
+    config:
+      astromRefObjLoader.ref_dataset_name: 'skymapper_dr3'
+      photoRefObjLoader.ref_dataset_name: 'skymapper_dr3'
+      photoCal.photoCatName: 'skymapper_dr3'
+      connections.astromRefCat: 'skymapper_dr3'
+      connections.photoRefCat: 'skymapper_dr3'
+      python: |
+        config.astromRefObjLoader.filterMap = {}
+        config.photoRefObjLoader.filterMap = {}
+        config.astromRefObjLoader.filterMap['g'] = 'g_psf'
+        config.astromRefObjLoader.filterMap['r'] = 'r_psf'
+        config.photoRefObjLoader.filterMap['g'] = 'g_psf'
+        config.photoRefObjLoader.filterMap['r'] = 'r_psf'
