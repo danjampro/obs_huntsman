@@ -8,10 +8,14 @@ tasks:
       doDefect: false
       doFringe: false
   characterizeImage:
-    class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
+    # class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
+    class: lsst.obs.huntsman.tasks.characterizeImage.HuntsmanCharacterizeImageTask
     config:
       repair.doCosmicRay: false
       python: |
+        from lsst.obs.huntsman.tasks.characterizeImage import HuntsmanSourceDetectionTask
+        config.detection.retarget(HuntsmanSourceDetectionTask)
+        config.detection.includeThresholdMultiplier = 1
         config.doMeasurePsf = True
         config.measurePsf.starSelector['objectSize'].doFluxLimit = False
         config.measurePsf.starSelector['objectSize'].doSignalToNoiseLimit = True
