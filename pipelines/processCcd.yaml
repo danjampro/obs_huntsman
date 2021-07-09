@@ -7,6 +7,7 @@ tasks:
       doCrosstalk: false
       doDefect: false
       doFringe: false
+      doOverscan: false
   characterizeImage:
     # class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
     class: lsst.obs.huntsman.tasks.characterizeImage.HuntsmanCharacterizeImageTask
@@ -22,8 +23,11 @@ tasks:
         config.measurePsf.starSelector['objectSize'].signalToNoiseMin = 10
         config.measurePsf.starSelector['objectSize'].signalToNoiseMax = 50
   calibrate:
-    class: lsst.pipe.tasks.calibrate.CalibrateTask
+    class: lsst.obs.huntsman.tasks.characterizeImage.HuntsmanCalibrateTask
     config:
+      doAstrometry: false
+      photoCal.match.matchRadius: 3
+      photoCal.match.sourceSelection.unresolved.maximum: 3
       astromRefObjLoader.ref_dataset_name: 'skymapper_dr3'
       photoRefObjLoader.ref_dataset_name: 'skymapper_dr3'
       photoCal.photoCatName: 'skymapper_dr3'
