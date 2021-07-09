@@ -18,6 +18,8 @@ tasks:
       doFlat: False
       doApplyGains: False
       doFringe: False
+      doOverscan: False
+      doSaturationInterpolation: True
   cpDark:
     class: lsst.cp.pipe.cpDarkTask.CpDarkTask
     config:

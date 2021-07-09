@@ -17,12 +17,15 @@ tasks:
       doFlat: False
       doFringe: False
       doApplyGains: False
+      doOverscan: False
+      doSaturationInterpolation: True
       # Vignette seems to be necessary to get the validPolygon
-      doVignette: True
-      vignette.doWriteVignettePolygon: True
+      doVignette: False
+      vignette.doWriteVignettePolygon: False
   cpFlatMeasure:
     class: lsst.cp.pipe.cpFlatNormTask.CpFlatMeasureTask
     config:
+      doVignette: False
       connections.inputExp: "cpFlatProc"
       connections.outputStats: "flatStats"
   cpFlatNorm:
