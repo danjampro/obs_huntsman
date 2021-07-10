@@ -26,8 +26,8 @@ tasks:
     class: lsst.obs.huntsman.tasks.characterizeImage.HuntsmanCalibrateTask
     config:
       doAstrometry: false
+      doPhotoCal: true
       photoCal.match.matchRadius: 3
-      photoCal.match.sourceSelection.unresolved.maximum: 3
       astromRefObjLoader.ref_dataset_name: 'skymapper_dr3'
       photoRefObjLoader.ref_dataset_name: 'skymapper_dr3'
       photoCal.photoCatName: 'skymapper_dr3'
